@@ -8,8 +8,7 @@ def input_students
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
-    #add the student hash to the array
-    students << {name: name , cohort: :november, country: :UK }
+    students << {name: name , cohort: :november}
     puts "Now we have #{students.count} students"
     #get another name from the user
     name = gets.chomp
@@ -25,7 +24,7 @@ def print(students)
   counter = 0
   size = students.size()
   while counter < size
-    puts "#{students[counter][:name]} #{students[counter][:cohort]} #{students[counter][:country]}"
+    puts "#{students[counter][:name]} #{students[counter][:cohort]}".center(30,"-")
     counter += 1
   end
 end
