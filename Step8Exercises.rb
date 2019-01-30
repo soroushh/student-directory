@@ -23,11 +23,18 @@ def print_header
   puts "-------------"
 end
 def print(students)
-  counter = 0
-  size = students.size()
-  while counter < size
-    puts "#{students[counter][:name]} #{students[counter][:cohort]}"
-    counter += 1
+  cohort_list =[]
+  students.each do |student|
+    cohort_list.push(student[:cohort])
+  end
+  cohort_list.uniq!
+  cohort_list.each do |cohort|
+    puts cohort
+    students.each do |student|
+      if student[:cohort] == cohort
+        puts student[:name]
+      end
+    end
   end
 end
 def print_footer(names)
