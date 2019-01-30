@@ -8,7 +8,9 @@ def input_students
   name = gets.chomp
   #while the name is not empty, repeat this code
   while !name.empty? do
-    students << {name: name , cohort: :november}
+    puts "Please enter the cohort of the student."
+    cohort = gets.chomp()
+    students << {name: name , cohort: cohort}
     puts "Now we have #{students.count} students"
     #get another name from the user
     name = gets.chomp
@@ -24,7 +26,7 @@ def print(students)
   counter = 0
   size = students.size()
   while counter < size
-    puts "#{students[counter][:name]} #{students[counter][:cohort]}".center(30,"-")
+    puts "#{students[counter][:name]} #{students[counter][:cohort]}"
     counter += 1
   end
 end
