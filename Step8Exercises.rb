@@ -27,16 +27,20 @@ def print_header
   puts "-------------"
 end
 def print(students)
-  cohort_list =[]
-  students.each do |student|
-    cohort_list.push(student[:cohort])
-  end
-  cohort_list.uniq!
-  cohort_list.each do |cohort|
-    puts cohort
+  if students.empty?()
+    return
+  else
+    cohort_list =[]
     students.each do |student|
-      if student[:cohort] == cohort
-        puts student[:name]
+      cohort_list.push(student[:cohort])
+    end
+    cohort_list.uniq!
+    cohort_list.each do |cohort|
+      puts cohort
+      students.each do |student|
+        if student[:cohort] == cohort
+          puts student[:name]
+        end
       end
     end
   end
