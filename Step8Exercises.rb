@@ -5,11 +5,11 @@ def input_students
   #create an empty array
   students = []
   # get the first name
-  name = gets.chomp
+  name = gets.chop()
   #while the name is not empty, repeat this code
   while !name.empty? do
     puts "Please enter the cohort of the student."
-    cohort = gets.chomp()
+    cohort = gets.chop()
     students << {name: name , cohort: cohort}
     if students.count == 1
       puts "Now, we have #{students.count} student."
@@ -17,7 +17,7 @@ def input_students
       puts "Now we have #{students.count} students"
     end
     #get another name from the user
-    name = gets.chomp
+    name = gets.chop
   end
   #return the array of students
   students
