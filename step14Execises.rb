@@ -41,7 +41,7 @@ def print_footer
 end
 
 def print_menu
-  puts "1. Input students\n2. Show the students \n3. Save the list to students.csv\n4. Load the list from students.csv\n9. Exit"
+  puts "1. Input students\n2. Show the students \n3. Save the list to a chosen file\n4. Load the list from a chosen file\n9. Exit"
    # 9 because we will be adding more items
 end
 
@@ -69,7 +69,9 @@ def process(selection)
 end
 
 def save_students
-  file = File.open("students.csv","w")
+  puts " Please enter the name of the file you want to load the names to"
+  file_name = input_taking + ".csv"
+  file = File.open(file_name,"w")
   @students.each do |student|
     student_data = [student[:name],student[:cohort]]
     csv_line = student_data.join(",")
@@ -79,7 +81,12 @@ def save_students
   puts "#{@students.size()} students were added to students.csv file."
 end
 
-def load_students(filename = "students.csv")
+def file_name_taking_for_loading
+  puts "Please enter the file name"
+  return input_taking + ".csv"
+end
+
+def load_students(filename = file_name_taking_for_loading)
   first_size = @students.size
   file = File.open(filename,"r")
   file.readlines.each do |line|
@@ -102,9 +109,10 @@ end
 def try_load_students
   filename = ARGV.first
   if filename.nil?
-    load_students("students.csv")
-    puts "#{@students.count} students was automatically loaded from
-    students.csv file."
+    return
+  elsif !File.exists?(filename)
+    puts "the file does not exist."
+    exit
   elsif File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
