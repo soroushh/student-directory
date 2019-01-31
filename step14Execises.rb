@@ -71,13 +71,13 @@ end
 def save_students
   puts " Please enter the name of the file you want to load the names to"
   file_name = input_taking + ".csv"
-  file = File.open(file_name,"w")
-  @students.each do |student|
-    student_data = [student[:name],student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  File.open(file_name,"w") do |file|
+    @students.each do |student|
+      student_data = [student[:name],student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close()
   puts "#{@students.size()} students were added to students.csv file."
 end
 
@@ -88,12 +88,12 @@ end
 
 def load_students(filename = file_name_taking_for_loading)
   first_size = @students.size
-  file = File.open(filename,"r")
+  File.open(filename,"r") do |file|
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     add_a_student(name, cohort)
   end
-  file.close
+end
   second_size = @students.size
   puts "#{second_size-first_size} students were loaded from the file."
 end
