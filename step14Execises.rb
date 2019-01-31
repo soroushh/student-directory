@@ -1,5 +1,5 @@
 @students = [] #an empty array accessible to all methods.
-
+require "CSV"
 def add_a_student(name, cohort = "november")
   @students << {name: name, cohort: cohort.to_sym}
 end
@@ -71,14 +71,12 @@ end
 def save_students
   puts " Please enter the name of the file you want to load the names to"
   file_name = input_taking + ".csv"
-  File.open(file_name,"w") do |file|
+  CSV.open(file_name, "wb") do |line|
     @students.each do |student|
-      student_data = [student[:name],student[:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
+      line << [student[:name], student[:cohort].to_s]
     end
   end
-  puts "#{@students.size()} students were added to students.csv file."
+  puts "#{@students.size()} students were added to #{file_name} file."
 end
 
 def file_name_taking_for_loading
@@ -88,12 +86,10 @@ end
 
 def load_students(filename = file_name_taking_for_loading)
   first_size = @students.size
-  File.open(filename,"r") do |file|
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    add_a_student(name, cohort)
+  CSV.foreach(filename) do |line|
+    name , cohort = line
+    @students << {name: name, cohort: cohort}
   end
-end
   second_size = @students.size
   puts "#{second_size-first_size} students were loaded from the file."
 end
