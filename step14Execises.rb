@@ -13,6 +13,7 @@ def input_students
   # get the first name
   name = input_taking
   #while the name is not empty, repeat this code
+  first_size = @students.size()
   while !name.empty? do
     #add the student hash to the array
     add_a_student(name)
@@ -20,6 +21,8 @@ def input_students
     #get another name from the user
     name = input_taking
   end
+  second_size = @students.size()
+  puts "#{second_size - first_size} students were added to the students list."
 end
 
 def print_header
@@ -73,15 +76,19 @@ def save_students
     file.puts csv_line
   end
   file.close()
+  puts "#{@students.size()} students were added to students.csv file."
 end
 
 def load_students(filename = "students.csv")
+  first_size = @students.size
   file = File.open(filename,"r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     add_a_student(name, cohort)
   end
   file.close
+  second_size = @students.size
+  puts "#{second_size-first_size} students were loaded from the file."
 end
 
 def interactive_menu
